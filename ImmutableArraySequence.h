@@ -69,6 +69,7 @@ public:
     }
 
     ImmutableArraySequence<T>* insertAt(int index, const T& item) const override {
+        if (index < 0 || index > array->getSize()) throw std::out_of_range("Entered indices are out of range.\n");
         DynamicArray<T> result(*(this->array));
         int resSize = getLength() + 1;
         result.resize(resSize);
