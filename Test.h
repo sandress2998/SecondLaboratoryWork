@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iostream>
 #include <cassert>
 #include "DynamicArray.h"
 #include "LinkedList.h"
@@ -849,6 +848,5 @@ struct Test {
         testImmutableListSequence.testClass();
         testDynamicArray.testClass();
         testLinkedList.testClass();
-        std::cout << "All tests passed successfully.\n";
     }
 };
