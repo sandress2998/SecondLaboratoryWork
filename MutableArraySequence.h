@@ -69,6 +69,7 @@ public:
     }
 
     void insertAt(int index, const T& item) override {
+        if (index < 0 || index > array->getSize()) throw std::out_of_range("Entered indices are out of range.\n");
         int resSize = getLength() + 1;
         DynamicArray<T> bufArray(*array);
         array->resize(resSize);
