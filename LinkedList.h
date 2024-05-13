@@ -57,6 +57,7 @@ public:
     }
 
     LinkedList(int size) {
+        if (size < 0) throw std::out_of_range("Entered invalid size.\n");
         if (size > 0) {
             head = new Node<T>;
             tail = head;
