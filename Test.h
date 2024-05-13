@@ -24,6 +24,10 @@ public:
 
         DynamicArray<int> da_1(5);
         assert(da_1.getSize() == 5);
+        try {
+            DynamicArray<int> da_except(-1);
+            assert(false);
+        } catch (std::out_of_range) {}
 
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
         DynamicArray<int> da_2(m, 7);
@@ -31,6 +35,10 @@ public:
         for (int i = 0; i < da_2.getSize(); ++i) {
             assert(da_2.get(i) == m[i]);
         }
+        try {
+            DynamicArray<int> da_except(m, -1);
+            assert(false);
+        } catch (std::out_of_range) {}
 
         DynamicArray<int> da_3(da_2);
         assert(da_3.getSize() == da_2.getSize());
@@ -54,8 +62,9 @@ public:
     }
 
     void testSet() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        DynamicArray<int> da(m, 7);
+        DynamicArray<int> da(m, length);
         int index1 = 0;
         int index2 = 3;
         int index3 = 6;
@@ -64,14 +73,31 @@ public:
         da.set(index2, value);
         da.set(index3, value);
         assert(da.get(index1) == value && da.get(index2) == value && da.get(index3) == value);
+        try {
+            da.set(-1, 10);
+            assert(false);
+        } catch (std::out_of_range) {}
+        try {
+            da.set(length, 10);
+            assert(false);
+        } catch (std::out_of_range) {}
     }
 
     void testGet() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        DynamicArray<int> da(m, 7);
+        DynamicArray<int> da(m, length);
         for (int i = 0; i < 7; ++i) {
             assert(da.get(i) == m[i]);
         }
+        try {
+            da.get(-1);
+            assert(false);
+        } catch (std::out_of_range) {}
+        try {
+            da.get(length);
+            assert(false);
+        } catch (std::out_of_range) {}
     }
 
     void testGetSize() {
@@ -81,15 +107,19 @@ public:
     }
 
     void testResize() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        DynamicArray<int> da(m, 7);
+        DynamicArray<int> da(m, length);
+        try {
+            da.resize(-1);
+            assert(false);
+        } catch (std::out_of_range) {}
 
         da.resize(10);
         assert(da.getSize() == 10);
         for (int i = 0; i < 7; ++i) {
             assert(da.get(i) == m[i]);
         }
-
         da.resize(4);
         assert(da.getSize() == 4);
         for (int i = 0; i < 4; ++i) {
@@ -127,6 +157,10 @@ public:
         for (int i = 0; i < ll_2.getLength(); ++i) {
             assert(ll_2.get(i) == m[i]);
         }
+        try {
+            LinkedList<int> ll_except(m, -1);
+            assert(false);
+        } catch (std::out_of_range) {}
 
         LinkedList<int> ll_3(ll_2);
         assert(ll_3.getLength() == ll_2.getLength());
@@ -144,11 +178,16 @@ public:
         int length = 5;
         LinkedList<int> ll_5(length);
         assert(ll_5.getLength() == length);
+        try {
+            LinkedList<int> ll_except(-1);
+            assert(false);
+        } catch (std::out_of_range) {}
     }
 
     void testSet() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        LinkedList<int> ll(m, 7);
+        LinkedList<int> ll(m, length);
         int index1 = 0;
         int index2 = 3;
         int index3 = 6;
@@ -157,14 +196,31 @@ public:
         ll.set(index2, value);
         ll.set(index3, value);
         assert(ll.get(index1) == value && ll.get(index2) == value && ll.get(index3) == value);
+        try {
+            ll.set(-1, 10);
+            assert(false);
+        } catch (std::out_of_range) {}
+        try {
+            ll.set(length, 10);
+            assert(false);
+        } catch (std::out_of_range) {}
     }
 
     void testGet() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        LinkedList<int> ll(m, 7);
-        for (int i = 0; i < 7; ++i) {
+        LinkedList<int> ll(m, length);
+        for (int i = 0; i < length; ++i) {
             assert(ll.get(i) == m[i]);
         }
+        try {
+            ll.get(-1);
+            assert(false);
+        } catch (std::out_of_range) {}
+        try {
+            ll.get(length);
+            assert(false);
+        } catch (std::out_of_range) {}
     }
 
     void testGetLength() {
@@ -174,15 +230,29 @@ public:
     }
 
     void testGetFirst() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        LinkedList<int> ll(m, 7);
+        LinkedList<int> ll(m, length);
         assert(ll.getFirst() == m[0]);
+
+        LinkedList<int> ll_except;
+        try {
+            ll_except.getFirst();
+            assert(false);
+        } catch (std::out_of_range) {}
     }
 
     void testGetLast() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        LinkedList<int> ll(m, 7);
+        LinkedList<int> ll(m, length);
         assert(ll.getLast() == m[6]);
+
+        LinkedList<int> ll_except;
+        try {
+            ll_except.getFirst();
+            assert(false);
+        } catch (std::out_of_range) {}
     }
 
     void testAppend() {
@@ -210,31 +280,61 @@ public:
     }
 
     void testInsertAt() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
         LinkedList<int> ll(m, 7);
         int elem = 100;
-        int index = 3;
-        ll.insertAt(index, elem);
-        assert(ll.getLength() == 8);
+        int index_1 = 0; // крайний случай
+        int index_2 = 3;
+        int index_3 = 9; // крайний случай
+        length += 3;
+        ll.insertAt(index_1, elem);
+        ll.insertAt(index_2, elem);
+        ll.insertAt(index_3, elem);
+        assert(ll.getLength() == 10);
         int i = 0;
-        for (; i < index; ++i) {
-            assert(ll.get(i) == m[i]);
-        }
         assert(ll.get(i++) == elem);
-        for (; i < ll.getLength(); ++i) {
+        for (; i < index_2; ++i) {
             assert(ll.get(i) == m[i - 1]);
         }
+        assert(ll.get(i++) == elem);
+        for (; i < ll.getLength() - 1; ++i) {
+            assert(ll.get(i) == m[i - 2]);
+        }
+        assert(ll.get(i) == elem);
+
+        try {
+            ll.insertAt(-1, 10);
+            assert(false);
+        } catch (std::out_of_range) {}
+        try {
+            ll.insertAt(length + 1, 10);
+            assert(false);
+        } catch (std::out_of_range) {}
     }
 
     void testGetSubsequence() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        LinkedList<int> ll(m, 7);
+        LinkedList<int> ll(m, length);
         int startIndex = 2;
         int endIndex = 5;
         LinkedList<int>* result = ll.getSubsequence(startIndex, endIndex);
         for (int i = startIndex; i <= endIndex; ++i) {
             assert(result->get(i - startIndex) == m[i]);
         }
+        try {
+            ll.getSubsequence(0, length);
+            assert(false);
+        } catch (std::out_of_range) {}
+        try {
+            ll.getSubsequence(-1, 0);
+            assert(false);
+        } catch (std::out_of_range) {}
+        try {
+            ll.getSubsequence(1, 0);
+            assert(false);
+        } catch (std::out_of_range) {}
 
     }
 
@@ -275,6 +375,10 @@ public:
         int length = 5;
         MutableSequence<int> mutSeq_1(length);
         assert(mutSeq_1.getLength() == length);
+        try {
+            MutableSequence<int> mutSeq_except(-1);
+            assert(false);
+        } catch (std::out_of_range) {}
 
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
         MutableSequence<int> mutSeq_2(m, 7);
@@ -282,6 +386,11 @@ public:
         for (int i = 0; i < mutSeq_2.getLength(); ++i) {
             assert(mutSeq_2.get(i) == m[i]);
         }
+        try {
+            MutableSequence<int> mutSeq_except(m, -1);
+            assert(false);
+        } catch (std::out_of_range) {}
+
 
         MutableSequence<int> mutSeq_3(mutSeq_2);
         assert(mutSeq_3.getLength() == mutSeq_2.getLength());
@@ -315,8 +424,9 @@ public:
 
     }
     void testSet() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        MutableSequence<int> mutSeq(m, 7);
+        MutableSequence<int> mutSeq(m, length);
         int index1 = 0;
         int index2 = 3;
         int index3 = 6;
@@ -325,32 +435,63 @@ public:
         mutSeq.set(index2, value);
         mutSeq.set(index3, value);
         assert(mutSeq.get(index1) == value && mutSeq.get(index2) == value && mutSeq.get(index3) == value);
+        try {
+           mutSeq.set(-1, 10);
+            assert(false);
+        } catch (std::out_of_range) {}
+        try {
+            mutSeq.set(length, 10);
+            assert(false);
+        } catch (std::out_of_range) {}
     }
     void testGet() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        MutableSequence<int> mutSeq(m, 7);
+        MutableSequence<int> mutSeq(m, length);
         for (int i = 0; i < 7; ++i) {
             assert(mutSeq.get(i) == m[i]);
         }
+        try {
+           mutSeq.get(-1);
+            assert(false);
+        } catch (std::out_of_range) {}
+        try {
+            mutSeq.get(length);
+            assert(false);
+        } catch (std::out_of_range) {}
     }
     void testGetFirst() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        MutableSequence<int> mutSeq(m, 7);
+        MutableSequence<int> mutSeq(m, length);
         assert(mutSeq.getFirst() == m[0]);
+        try {
+            MutableSequence<int> mutSeq_except;
+            mutSeq_except.getFirst();
+            assert(false);
+        } catch (std::out_of_range) {}
     }
     void testGetLast() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        MutableSequence<int> mutSeq(m, 7);
+        MutableSequence<int> mutSeq(m, length);
         assert(mutSeq.getLast() == m[6]);
+        try {
+            MutableSequence<int> mutSeq_except;
+            mutSeq_except.getLast();
+            assert(false);
+        } catch (std::out_of_range) {}
     }
     void testGetLength() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        MutableSequence<int> mutSeq(m, 7);
+        MutableSequence<int> mutSeq(m, length);
         assert(mutSeq.getLength() == 7);
     }
     void testAppend() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        MutableSequence<int> mutSeq(m, 7);
+        MutableSequence<int> mutSeq(m, length);
         int elem = 100;
         mutSeq.append(elem);
         assert(mutSeq.getLength() == 8);
@@ -360,8 +501,9 @@ public:
         assert(mutSeq.get(7) == elem);
     }
     void testPrepend() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        MutableSequence<int> mutSeq(m, 7);
+        MutableSequence<int> mutSeq(m, length);
         int elem = 100;
         mutSeq.prepend(elem);
         assert(mutSeq.getLength() == 8);
@@ -371,12 +513,14 @@ public:
         }
     }
     void testInsertAt() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        MutableSequence<int> mutSeq(m, 7);
+        MutableSequence<int> mutSeq(m, length);
         int elem = 100;
         int index_1 = 0; // крайний случай
         int index_2 = 3;
         int index_3 = 9; // крайний случай
+        length += 3;
         mutSeq.insertAt(index_1, elem);
         mutSeq.insertAt(index_2, elem);
         mutSeq.insertAt(index_3, elem);
@@ -391,17 +535,37 @@ public:
             assert(mutSeq.get(i) == m[i - 2]);
         }
         assert(mutSeq.get(i) == elem);
+        try {
+            mutSeq.insertAt(-1, 10);
+            assert(false);
+        } catch (std::out_of_range) {}
+        try {
+            mutSeq.insertAt(length + 1, 10);
+            assert(false);
+        } catch (std::out_of_range) {}
     }
     void testGetSubsequence() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        MutableSequence<int> mutSeq(m, 7);
+        MutableSequence<int> mutSeq(m, length);
         int startIndex = 2;
         int endIndex = 5;
         MutableSequence<int>* result = mutSeq.getSubsequence(startIndex, endIndex);
         for (int i = startIndex; i <= endIndex; ++i) {
             assert(result->get(i - startIndex) == m[i]);
         }
-
+        try {
+            mutSeq.getSubsequence(0, length);
+            assert(false);
+        } catch (std::out_of_range) {}
+        try {
+            mutSeq.getSubsequence(-1, 0);
+            assert(false);
+        } catch (std::out_of_range) {}
+        try {
+            mutSeq.getSubsequence(1, 0);
+            assert(false);
+        } catch (std::out_of_range) {}
     }
     void testConcat() {
         int m_1[7] = {0, 1, 2, 3, 4, 5, 6};
@@ -441,6 +605,10 @@ public:
         int length = 5;
         ImmutableSequence<int> immutSeq_1(length);
         assert(immutSeq_1.getLength() == length);
+        try {
+            ImmutableSequence<int> immutSeq_except(-1);
+            assert(false);
+        } catch (std::out_of_range) {}
 
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
         ImmutableSequence<int> immutSeq_2(m, 7);
@@ -448,6 +616,10 @@ public:
         for (int i = 0; i < immutSeq_2.getLength(); ++i) {
             assert(immutSeq_2.get(i) == m[i]);
         }
+        try {
+            ImmutableSequence<int> immutSeq_except(m, -1);
+            assert(false);
+        } catch (std::out_of_range) {}
 
         ImmutableSequence<int> immutSeq_3(immutSeq_2);
         assert(immutSeq_3.getLength() == immutSeq_2.getLength());
@@ -481,34 +653,57 @@ public:
     }
 
     void testGet() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        ImmutableSequence<int> immutSeq(m, 7);
+        ImmutableSequence<int> immutSeq(m, length);
         for (int i = 0; i < 7; ++i) {
             assert(immutSeq.get(i) == m[i]);
         }
+        try {
+            immutSeq.get(-1);
+            assert(false);
+        } catch (std::out_of_range) {}
+        try {
+            immutSeq.get(length);
+            assert(false);
+        } catch (std::out_of_range) {}
     }
 
     void testGetFirst() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        ImmutableSequence<int> immutSeq(m, 7);
+        ImmutableSequence<int> immutSeq(m, length);
         assert(immutSeq.getFirst() == 0);
+        try {
+            ImmutableSequence<int> immutSeq_except;
+            immutSeq_except.getFirst();
+            assert(false);
+        } catch (std::out_of_range) {}
     }
 
     void testGetLast() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        ImmutableSequence<int> immutSeq(m, 7);
+        ImmutableSequence<int> immutSeq(m, length);
         assert(immutSeq.getLast() == 6);
+        try {
+            ImmutableSequence<int> immutSeq_except;
+            immutSeq_except.getLast();
+            assert(false);
+        } catch (std::out_of_range) {}
     }
 
     void testGetLength() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        ImmutableSequence<int> immutSeq(m, 7);
+        ImmutableSequence<int> immutSeq(m, length);
         assert(immutSeq.getLength() == 7);
     }
 
     void testAppend() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        ImmutableSequence<int> immutSeq(m, 7);
+        ImmutableSequence<int> immutSeq(m, length);
         int elem = 100;
         Sequence<int>* immutSeq_2 = immutSeq.append(elem);
         assert(immutSeq_2->getLength() == 8);
@@ -522,8 +717,9 @@ public:
     }
 
     void testPrepend() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        ImmutableSequence<int> immutSeq(m, 7);
+        ImmutableSequence<int> immutSeq(m, length);
         int elem = 100;
         Sequence<int>* immutSeq_2 = immutSeq.prepend(elem);
         assert(immutSeq.getLength() == 7);
@@ -537,8 +733,9 @@ public:
     }
 
     void testInsertAt() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        ImmutableSequence<int> immutSeq(m, 7);
+        ImmutableSequence<int> immutSeq(m, length);
 
         Sequence<int>* immutSeq_2;
         int elem = 100;
@@ -585,17 +782,40 @@ public:
         }
         assert(immutSeq_2->get(i++) == elem);
         delete immutSeq_2;
+
+        try {
+            immutSeq.insertAt(-1, elem);
+            assert(false);
+        } catch (std::out_of_range) {}
+
+        try {
+            immutSeq.insertAt(length + 1, elem);
+            assert(false);
+        } catch (std::out_of_range) {}
     }
 
     void testGetSubsequence() {
+        int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        ImmutableSequence<int> immutSeq(m, 7);
+        ImmutableSequence<int> immutSeq(m, length);
         int startIndex = 2;
         int endIndex = 5;
         ImmutableSequence<int>* result = immutSeq.getSubsequence(startIndex, endIndex);
         for (int i = startIndex; i <= endIndex; ++i) {
             assert(result->get(i - startIndex) == m[i]);
         }
+        try {
+            immutSeq.getSubsequence(0, length);
+            assert(false);
+        } catch (std::out_of_range) {}
+        try {
+            immutSeq.getSubsequence(-1, 0);
+            assert(false);
+        } catch (std::out_of_range) {}
+        try {
+            immutSeq.getSubsequence(1, 0);
+            assert(false);
+        } catch (std::out_of_range) {}
     }
 
     void testConcat() {
