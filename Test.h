@@ -834,19 +834,42 @@ public:
 };
 
 struct Test {
-    TestMutableSequence<MutableArraySequence> testMutableArraySequence;
-    TestMutableSequence<MutableListSequence> testMutableListSequence;
-    TestImmutableSequence<ImmutableArraySequence> testImmutableArraySequence;
-    TestImmutableSequence<ImmutableListSequence> testImmutableListSequence;
-    TestDynamicArray testDynamicArray;
-    TestLinkedList testLinkedList;
-
     void startTest() {
-        testMutableArraySequence.testClass();
-        testMutableListSequence.testClass();
-        testImmutableArraySequence.testClass();
-        testImmutableListSequence.testClass();
+        testMutableArraySequence();
+        testMutableListSequence();
+        testImmutableArraySequence();
+        testImmutableListSequence();
+        testDynamicArray();
+        testLinkedList();
+    }
+
+    void testDynamicArray() {
+        TestDynamicArray testDynamicArray;
         testDynamicArray.testClass();
+    }
+
+    void testLinkedList() {
+        TestLinkedList testLinkedList;
         testLinkedList.testClass();
+    }
+
+    void testMutableArraySequence() {
+        TestMutableSequence<MutableArraySequence> testMutableArraySequence;
+        testMutableArraySequence.testClass();
+    }
+
+    void testMutableListSequence() {
+        TestMutableSequence<MutableListSequence> testMutableListSequence;
+        testMutableListSequence.testClass();
+    }
+
+    void testImmutableArraySequence() {
+        TestImmutableSequence<ImmutableArraySequence> testImmutableArraySequence;
+        testImmutableArraySequence.testClass();
+    }
+
+    void testImmutableListSequence() {
+        TestImmutableSequence<ImmutableListSequence> testImmutableListSequence;
+        testImmutableListSequence.testClass();
     }
 };
