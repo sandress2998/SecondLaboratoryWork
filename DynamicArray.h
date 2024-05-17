@@ -101,10 +101,13 @@ public:
         if (size == 0) array = nullptr;
     }
 
-    void printArray() const {
-        for (int i = 0; i < size; ++i) {
-            std::cout << array[i] << " ";
+    friend std::ostream& operator << (std::ostream& os, const DynamicArray<T>& value) {
+        int i = 0;
+        for (; i < value.getSize() - 1; ++i) {
+            os << value[i] << " ";
         }
-        std::cout << "\n";
+        os << value[i] << "\n";
+        return os;
     }
 };
+
