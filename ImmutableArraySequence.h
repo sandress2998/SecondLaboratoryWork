@@ -29,6 +29,7 @@ public:
     T operator[](int index) const override {
         return (*array)[index];
     }
+
     ImmutableArraySequence<T>& operator=(const ImmutableArraySequence<T>& other) {
         return *this;
     }
@@ -50,60 +51,30 @@ public:
     }
 
     ImmutableArraySequence<T>* append(const T& item) const override {
-        DynamicArray<T> result(*(this->array));
-        int resSize = getLength() + 1;
-        result.resize(resSize);
-        result[resSize - 1] = item;
-        return new ImmutableArraySequence(result);
+        MutableArraySequence<T> other(*this);
+        other.append(item);
+        return new ImmutableArraySequence(other);
     }
 
     ImmutableArraySequence<T>* prepend(const T& item) const override {
-        DynamicArray<T> result(*(this->array));
-        int resSize = getLength() + 1;
-        result.resize(resSize);
-        result[0] = item;
-        for (int i = 1; i < resSize; ++i) {
-            result[i] = get(i - 1);
-        }
-        return new ImmutableArraySequence(result);
+        MutableArraySequence<T> other(*this);
+        other.prepend(item);
+        return new ImmutableArraySequence(other);
     }
 
     ImmutableArraySequence<T>* insertAt(int index, const T& item) const override {
-        if (index < 0 || index > array->getSize()) throw std::out_of_range("Entered indices are out of range.\n");
-        DynamicArray<T> result(*(this->array));
-        int resSize = getLength() + 1;
-        result.resize(resSize);
-        int i = 0;
-        for (; i < index; ++i) {
-            result[i] = get(i);
-
-        }
-        result[i++] = item;
-        for (; i < resSize; ++i) {
-            result[i] = get(i - 1);
-        }
-        return new ImmutableArraySequence(result);
+        MutableArraySequence<T> other(*this);
+        other.insertAt(index, item);
+        return new ImmutableArraySequence(other);
     }
 
     ImmutableArraySequence<T>* getSubsequence(int startIndex, int endIndex) const override {
-        if (startIndex > endIndex || startIndex < 0 || endIndex >= this->getLength()) throw std::out_of_range("Entered indices are out of range.\n");
-        DynamicArray<T> bufArray(endIndex - startIndex + 1);
-        for (int i = 0; i < bufArray.getSize(); ++i) {
-            bufArray[i] = get(i + startIndex);
-        }
-        return new ImmutableArraySequence<T>(bufArray);;
+        MutableArraySequence<T> other(*this);
+        return new ImmutableArraySequence<T>(*other.getSubsequence(startIndex, endIndex));;
     }
 
     ImmutableArraySequence<T>* concat(const Sequence<T>& other) const override {
-        DynamicArray<T> bufArray(getLength() + other.getLength());
-        int i = 0;
-        int length = getLength();
-        for (; i < length; ++i) {
-            (bufArray)[i] = get(i);
-        }
-        for (; i < length + other.getLength(); ++i) {
-            (bufArray)[i] = other.get(i - length);
-        }
-        return new ImmutableArraySequence<T>(bufArray);
+        MutableArraySequence<T> buf(*this);
+        return new ImmutableArraySequence<T>(*buf.concat(other));
     }
 };
