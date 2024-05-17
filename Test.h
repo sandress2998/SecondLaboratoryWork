@@ -15,6 +15,7 @@ public:
     void testClass() {
         testConstructors();
         testGet();
+        testSquareBrackets();
         testGetSize();
         testSet();
         testResize();
@@ -90,12 +91,32 @@ public:
         for (int i = 0; i < 7; ++i) {
             assert(da.get(i) == m[i]);
         }
+
         try {
             da.get(-1);
             assert(false);
         } catch (std::out_of_range&) {}
         try {
             da.get(length);
+            assert(false);
+        } catch (std::out_of_range&) {}
+    }
+
+
+    void testSquareBrackets() {
+        int length = 7;
+        int m[7] = {0, 1, 2, 3, 4, 5, 6};
+        DynamicArray<int> da(m, length);
+        for (int i = 0; i < 7; ++i) {
+            assert(da[i] == m[i]);
+        }
+
+        try {
+            da[-1];
+            assert(false);
+        } catch (std::out_of_range&) {}
+        try {
+            da[length];
             assert(false);
         } catch (std::out_of_range&) {}
     }
@@ -135,6 +156,7 @@ public:
     void testClass() {
         testConstructors();
         testGet();
+        testSquareBrackets();
         testGetLength();
         testSet();
         testGetFirst();
@@ -219,6 +241,24 @@ public:
         } catch (std::out_of_range&) {}
         try {
             ll.get(length);
+            assert(false);
+        } catch (std::out_of_range&) {}
+    }
+
+    void testSquareBrackets() {
+        int length = 7;
+        int m[7] = {0, 1, 2, 3, 4, 5, 6};
+        LinkedList<int> da(m, length);
+        for (int i = 0; i < 7; ++i) {
+            assert(da[i] == m[i]);
+        }
+
+        try {
+            da[-1];
+            assert(false);
+        } catch (std::out_of_range&) {}
+        try {
+            da[length];
             assert(false);
         } catch (std::out_of_range&) {}
     }
@@ -374,6 +414,7 @@ public:
     void testClass() {
         testConstructors();
         testGet();
+        testSquareBrackets();
         testGetLength();
         testSet();
         testAppend();
@@ -474,6 +515,24 @@ public:
         } catch (std::out_of_range&) {}
         try {
             mutSeq.get(length);
+            assert(false);
+        } catch (std::out_of_range&) {}
+    }
+
+    void testSquareBrackets() {
+        int length = 7;
+        int m[7] = {0, 1, 2, 3, 4, 5, 6};
+        MutableSequence<int> da(m, length);
+        for (int i = 0; i < 7; ++i) {
+            assert(da[i] == m[i]);
+        }
+
+        try {
+            da[-1];
+            assert(false);
+        } catch (std::out_of_range&) {}
+        try {
+            da[length];
             assert(false);
         } catch (std::out_of_range&) {}
     }
@@ -629,6 +688,7 @@ public:
     void testClass() {
         testConstructors();
         testGet();
+        testSquareBrackets();
         testGetLength();
         testAppend();
         testPrepend();
@@ -703,6 +763,24 @@ public:
         } catch (std::out_of_range&) {}
         try {
             immutSeq.get(length);
+            assert(false);
+        } catch (std::out_of_range&) {}
+    }
+
+    void testSquareBrackets() {
+        int length = 7;
+        int m[7] = {0, 1, 2, 3, 4, 5, 6};
+        ImmutableSequence<int> da(m, length);
+        for (int i = 0; i < 7; ++i) {
+            assert(da[i] == m[i]);
+        }
+
+        try {
+            da[-1];
+            assert(false);
+        } catch (std::out_of_range&) {}
+        try {
+            da[length];
             assert(false);
         } catch (std::out_of_range&) {}
     }
@@ -887,7 +965,6 @@ public:
         }
     }
 };
-
 
 struct Test {
     void startTest() {
