@@ -13,15 +13,19 @@ private:
     struct UserSequence {
 
     private:
+
         MutableSequence<int>* sequenceInt = nullptr;
         MutableSequence<double>* sequenceDouble = nullptr;
         MutableSequence<char>* sequenceChar = nullptr;
+
     public:
+
         ~UserSequence() {
             delete sequenceInt;
             delete sequenceDouble;
             delete sequenceChar;
         }
+
         int selectSequenceLength() {
             std::cout << "Select sequence length:\n";
             int selectedLength;
@@ -32,6 +36,7 @@ private:
             }
             return selectedLength;
         }
+
         UserSequence(int selectedSequence, int selectedType) {
             if (selectedType == 1 && selectedSequence == 1) {
                 sequenceInt = new MutableArraySequence<int>(selectSequenceLength());
@@ -47,7 +52,7 @@ private:
                 sequenceChar = new MutableListSequence<char>(selectSequenceLength());
             }
         }
-    public:
+
         void setValue() {
             int index;
             std::cout << "Enter the index of element: ";
@@ -85,6 +90,7 @@ private:
             }
             std::cout << "\n\n";
         }
+
         void insertValue() {
             int index;
             std::cout << "Enter the index of element: ";
@@ -111,7 +117,6 @@ private:
             std::cout << "\n\n";
         }
 
-        // Происходит утечка памяти в случае Immutable
         void appendValue() {
             std::cout << "Enter the value of element: ";
             if (sequenceInt != nullptr) {
@@ -129,6 +134,7 @@ private:
             }
             std::cout << "\n\n";
         }
+
         void prependValue() {
             std::cout << "Enter the value of element: ";
             if (sequenceInt != nullptr) {
@@ -146,6 +152,7 @@ private:
             }
             std::cout << "\n\n";
         }
+
         void printFirst() {
             if (sequenceInt != nullptr) {
                 std::cout << sequenceInt->getFirst() << std::endl;
@@ -156,6 +163,7 @@ private:
             }
             std::cout << "\n\n";
         }
+
         void printLast() {
             if (sequenceInt != nullptr) {
                 std::cout << sequenceInt->getLast() << std::endl;
@@ -166,6 +174,7 @@ private:
             }
             std::cout << "\n\n";
         }
+
         void printSequence() {
             if (sequenceInt != nullptr) {
                 sequenceInt->print();
@@ -176,6 +185,7 @@ private:
             }
             std::cout << "\n\n";
         }
+
         void printSubsequence() {
             int start;
             int end;
@@ -314,6 +324,7 @@ private:
         }
 
 public:
+
     void start() {
         std::cout << "This is the program to work with the sequence. Let's start!\n\n\n";
         int action = 0;
