@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 template <class T>
 class Sequence {
@@ -23,6 +24,16 @@ public:
             }
         }
         return true;
+    }
+
+    friend std::ostream& operator<<( std::ostream& os, const Sequence<T>& value ) {
+        if (value.getLength() == 0) return os;
+        int i = 0;
+        for (; i < value.getLength() - 1; ++i) {
+            os << value.get(i) << " ";
+        }
+        os << value.get(i) << "\n";
+        return os;
     }
 };
 
