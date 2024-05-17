@@ -83,10 +83,6 @@ public:
         }
     }
 
-    void print() const override {
-        array->printArray();
-    }
-
     MutableArraySequence<T>* getSubsequence(int startIndex, int endIndex) const override {
         if (startIndex > endIndex || startIndex < 0 || endIndex >= this->getLength()) throw std::out_of_range("Entered indices are out of range.\n");
         MutableArraySequence<T>* result = new MutableArraySequence<T>(endIndex - startIndex + 1);
