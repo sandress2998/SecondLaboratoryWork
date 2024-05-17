@@ -1,14 +1,12 @@
+#include "UI.h";
 #include "Test.h"
-#include "UI.h"
 
 int main()
 {
-
     Test test;
     test.startTest();
-
-    UI_Sequence ui;
-    ui.start();
+    
+    start_UI();
+    
     return 0;
 }
-
