@@ -80,16 +80,9 @@ public:
     }
 
     ImmutableListSequence<T>* concat(const Sequence<T>& other) const override {
-        LinkedList<T> bufList;
-        int i = 0;
-        int length = this->getLength();
-        for (; i < length; ++i) {
-            bufList.append((*this)[i]);
-        }
-        for (; i < length + other.getLength(); ++i) {
-            bufList.append(other.get(i - length));
-        }
-        return new ImmutableListSequence<T>(bufList);
+        LinkedList<T> firstBufList(*this);
+        LinkedList<T> secondBufList(other);
+        return new ImmutableListSequence<T>(*firstBufList.concat(&secondBufList));
     }
 };
 
