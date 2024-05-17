@@ -75,15 +75,8 @@ public:
     }
 
     MutableListSequence<T>* concat(const Sequence<T>& other) const override {
-        MutableListSequence<T>* result = new MutableListSequence<T>;
-        int i = 0;
-        int length = this->getLength();
-        for (; i < length; ++i) {
-            result->append((*this)[i]);
-        }
-        for (; i < length + other.getLength(); ++i) {
-            result->append(other.get(i - length));
-        }
-        return result;
+        LinkedList<T> firstBufList(*this);
+        LinkedList<T> secondBufList(other);
+        return new MutableListSequence<T>(*firstBufList.concat(&secondBufList));
     }
 };
