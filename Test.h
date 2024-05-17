@@ -265,6 +265,10 @@ public:
             assert(ll.get(i) == m[i]);
         }
         assert(ll.get(7) == elem);
+
+        LinkedList<int> ll_2; // пустой список
+        ll_2.append(elem);
+        assert(ll_2.get(0) == elem);
     }
 
     void testPrepend() {
@@ -277,6 +281,10 @@ public:
         for (int i = 1; i < 8; ++i) {
             assert(ll.get(i) == m[i - 1]);
         }
+
+        LinkedList<int> ll_2; // пустой список
+        ll_2.prepend(elem);
+        assert(ll_2.get(0) == elem);
     }
 
     void testInsertAt() {
@@ -311,6 +319,11 @@ public:
             ll.insertAt(length + 1, 10);
             assert(false);
         } catch (std::out_of_range&) {}
+
+
+        LinkedList<int> ll_2; // пустой список
+        ll_2.insertAt(0, elem);
+        assert(ll_2.get(0) == elem);
     }
 
     void testGetSubsequence() {
@@ -323,6 +336,7 @@ public:
         for (int i = startIndex; i <= endIndex; ++i) {
             assert(result->get(i - startIndex) == m[i]);
         }
+
         try {
             ll.getSubsequence(0, length);
             assert(false);
@@ -506,6 +520,10 @@ public:
             assert(mutSeq.get(i) == m[i]);
         }
         assert(mutSeq.get(7) == elem);
+
+        MutableSequence<int> mutSeq_2;
+        mutSeq_2.append(elem);
+        assert(mutSeq_2.get(0) == elem);
     }
 
     void testPrepend() {
@@ -519,6 +537,10 @@ public:
         for (int i = 1; i < 8; ++i) {
             assert(mutSeq.get(i) == m[i - 1]);
         }
+
+        MutableSequence<int> mutSeq_2;
+        mutSeq_2.prepend(elem);
+        assert(mutSeq_2.get(0) == elem);
     }
 
     void testInsertAt() {
@@ -544,6 +566,7 @@ public:
             assert(mutSeq.get(i) == m[i - 2]);
         }
         assert(mutSeq.get(i) == elem);
+
         try {
             mutSeq.insertAt(-1, 10);
             assert(false);
@@ -552,6 +575,10 @@ public:
             mutSeq.insertAt(length + 1, 10);
             assert(false);
         } catch (std::out_of_range&) {}
+
+        MutableSequence<int> mutSeq_2;
+        mutSeq_2.insertAt(0, elem);
+        assert(mutSeq_2.get(0) == elem);
     }
 
     void testGetSubsequence() {
@@ -725,6 +752,11 @@ public:
         }
         assert(immutSeq_2->get(7) == elem);
         delete immutSeq_2;
+
+        ImmutableSequence<int> immutSeq_3; // пустая последовательность
+        ImmutableSequence<int>* immutSeq_4 = immutSeq_3.append(elem);
+        assert(immutSeq_4->get(0) == elem);
+        delete immutSeq_4;
     }
 
     void testPrepend() {
@@ -741,6 +773,11 @@ public:
             assert(immutSeq_2->get(i) == m[i - 1]);
         }
         delete immutSeq_2;
+
+        ImmutableSequence<int> immutSeq_3; // пустая последовательность
+        ImmutableSequence<int>* immutSeq_4 = immutSeq_3.prepend(elem);
+        assert(immutSeq_4->get(0) == elem);
+        delete immutSeq_4;
     }
 
     void testInsertAt() {
@@ -803,6 +840,12 @@ public:
             immutSeq.insertAt(length + 1, elem);
             assert(false);
         } catch (std::out_of_range&) {}
+
+
+        ImmutableSequence<int> immutSeq_3; // пустая последовательность
+        ImmutableSequence<int>* immutSeq_4 = immutSeq_3.insertAt(0, elem);
+        assert(immutSeq_4->get(0) == elem);
+        delete immutSeq_4;
     }
 
     void testGetSubsequence() {
@@ -844,6 +887,7 @@ public:
         }
     }
 };
+
 
 struct Test {
     void startTest() {
