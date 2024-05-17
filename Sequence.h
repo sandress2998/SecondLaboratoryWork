@@ -14,8 +14,6 @@ public:
     virtual Sequence<T>* getSubsequence(int startIndex, int endIndex) const = 0;
     virtual Sequence<T>* concat(const Sequence<T>& secondSequence) const = 0;
 
-    virtual void print() const = 0;
-
     bool operator==(const Sequence<T>& sequence) const {
         if (this->getLength() != sequence.getLength()) return false;
         for (int i = 0; i < this->getLength(); ++i) {
