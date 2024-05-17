@@ -1,7 +1,7 @@
 #pragma once
 
-#include <stdexcept>
 #include <iostream>
+#include <stdexcept>
 #include "Sequence.h"
 /// Functionally complements ListSequence
 
@@ -77,7 +77,7 @@ public:
             while (bufNode != nullptr) {
                 delete head;
                 head = bufNode;
-                bufNode = bufNode -> next;
+                bufNode = bufNode->next;
             }
             delete head;
         }
@@ -107,7 +107,7 @@ public:
             while (bufNode != nullptr) {
                 delete head;
                 head = bufNode;
-                bufNode = bufNode -> next;
+                bufNode = bufNode->next;
             }
             delete head;
         }
@@ -194,13 +194,6 @@ public:
         }
     }
 
-    void printList() const {
-        for (int i = 0; i < size; ++i) {
-            std::cout << getNode(i).value << " ";
-        }
-        std::cout << "\n";
-    }
-
     LinkedList<T>* concat(LinkedList<T>* second_ll) const { // сцепляет два списка
         LinkedList<T>* result_ll = new LinkedList<T>;
         for (int i = 0; i < size; ++i) {
@@ -210,5 +203,14 @@ public:
             result_ll->append(second_ll->get(j));
         }
         return result_ll;
+    }
+
+    friend std::ostream& operator << (std::ostream& os, const LinkedList<T>& value) {
+        int i = 0;
+        for (; i < value.getLength() - 1; ++i) {
+            os << value[i] << " ";
+        }
+        os << value[i] << "\n";
+        return os;
     }
 };
