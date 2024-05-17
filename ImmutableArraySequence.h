@@ -85,10 +85,6 @@ public:
         return new ImmutableArraySequence(result);
     }
 
-    void print() const override {
-        array->printArray();
-    }
-
     ImmutableArraySequence<T>* getSubsequence(int startIndex, int endIndex) const override {
         if (startIndex > endIndex || startIndex < 0 || endIndex >= this->getLength()) throw std::out_of_range("Entered indices are out of range.\n");
         DynamicArray<T> bufArray(endIndex - startIndex + 1);
