@@ -27,7 +27,7 @@ public:
         try {
             DynamicArray<int> da_except(-1);
             assert(false);
-        } catch (std::out_of_range) {}
+        } catch (std::out_of_range&) {}
 
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
         DynamicArray<int> da_2(m, 7);
