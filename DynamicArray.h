@@ -90,17 +90,15 @@ public:
 
     void resize(int newSize) {
         if (newSize < 0) throw std::out_of_range("Entered invalid size.\n");
-        T helpArray[newSize];
+        T* helpArray = new T[newSize];
         int minSize = newSize < size ? newSize : size;
         for (int i = 0; i < minSize; ++i) {
             helpArray[i] = array[i];
         }
         delete[] array;
-        array = new T[newSize];
-        for (int i = 0; i < minSize; ++i) {
-            array[i] = helpArray[i];
-        }
+        array = helpArray;
         size = newSize;
+        if (size == 0) array = nullptr;
     }
 
     void printArray() const {
