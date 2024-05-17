@@ -69,10 +69,6 @@ public:
         list->insertAt(index, item);
     }
 
-    void print() const override {
-        list->printList();
-    }
-
     MutableListSequence<T>* getSubsequence(int startIndex, int endIndex) const override {
         if (startIndex > endIndex || startIndex < 0 || endIndex >= this->getLength()) throw std::out_of_range("Entered indices are out of range.\n");
         return new MutableListSequence<T>(*this->list->getSubsequence(startIndex, endIndex));
