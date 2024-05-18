@@ -87,17 +87,6 @@ public:
         // getNode(index) выбросит исключение
         return getNode(index).value;
     }
-    bool operator==(const LinkedList<T>& linkedList) const {
-        if (this->getLength() == linkedList.getLength()){
-            for (int i = 0; i < this->getLength(); ++i) {
-                if ((*this)[i] != linkedList[i]) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return false;
-    }
 
     // Переделано
     LinkedList<T>& operator=(const LinkedList<T>& other) {
