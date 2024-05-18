@@ -832,7 +832,7 @@ public:
         delete immutSeq_2;
 
         ImmutableSequence<int> immutSeq_3; // пустая последовательность
-        ImmutableSequence<int>* immutSeq_4 = immutSeq_3.append(elem);
+        Sequence<int>* immutSeq_4 = immutSeq_3.append(elem);
         assert(immutSeq_4->get(0) == elem);
         delete immutSeq_4;
     }
@@ -853,7 +853,7 @@ public:
         delete immutSeq_2;
 
         ImmutableSequence<int> immutSeq_3; // пустая последовательность
-        ImmutableSequence<int>* immutSeq_4 = immutSeq_3.prepend(elem);
+        Sequence<int>* immutSeq_4 = immutSeq_3.prepend(elem);
         assert(immutSeq_4->get(0) == elem);
         delete immutSeq_4;
     }
@@ -921,7 +921,7 @@ public:
 
 
         ImmutableSequence<int> immutSeq_3; // пустая последовательность
-        ImmutableSequence<int>* immutSeq_4 = immutSeq_3.insertAt(0, elem);
+        Sequence<int>* immutSeq_4 = immutSeq_3.insertAt(0, elem);
         assert(immutSeq_4->get(0) == elem);
         delete immutSeq_4;
     }
