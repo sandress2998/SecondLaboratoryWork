@@ -53,18 +53,6 @@ public:
         return array[index];
     }
 
-    bool operator==(const DynamicArray<T>& other) const {
-        if (this->getLength() == other.getLength()){
-            for (int i = 0; i < this->getLength(); ++i) {
-                if ((*this)[i] != other[i]) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-
     // Переделано
     DynamicArray<T>& operator=(const DynamicArray<T>& other) {
         delete array;
