@@ -248,17 +248,17 @@ public:
     void testSquareBrackets() {
         int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        LinkedList<int> da(m, length);
+        LinkedList<int> ll(m, length);
         for (int i = 0; i < 7; ++i) {
-            assert(da[i] == m[i]);
+            assert(ll[i] == m[i]);
         }
 
         try {
-            da[-1];
+            ll[-1];
             assert(false);
         } catch (std::out_of_range&) {}
         try {
-            da[length];
+            ll[length];
             assert(false);
         } catch (std::out_of_range&) {}
     }
@@ -522,17 +522,17 @@ public:
     void testSquareBrackets() {
         int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        MutableSequence<int> da(m, length);
+        MutableSequence<int> mutSeq(m, length);
         for (int i = 0; i < 7; ++i) {
-            assert(da[i] == m[i]);
+            assert(mutSeq[i] == m[i]);
         }
 
         try {
-            da[-1];
+            mutSeq[-1];
             assert(false);
         } catch (std::out_of_range&) {}
         try {
-            da[length];
+            mutSeq[length];
             assert(false);
         } catch (std::out_of_range&) {}
     }
@@ -770,17 +770,17 @@ public:
     void testSquareBrackets() {
         int length = 7;
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        ImmutableSequence<int> da(m, length);
+        ImmutableSequence<int> immutSeq(m, length);
         for (int i = 0; i < 7; ++i) {
-            assert(da[i] == m[i]);
+            assert(immutSeq[i] == m[i]);
         }
 
         try {
-            da[-1];
+            immutSeq[-1];
             assert(false);
         } catch (std::out_of_range&) {}
         try {
-            da[length];
+            immutSeq[length];
             assert(false);
         } catch (std::out_of_range&) {}
     }
