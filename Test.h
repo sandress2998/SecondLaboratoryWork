@@ -646,7 +646,7 @@ public:
         MutableSequence<int> mutSeq(m, length);
         int startIndex = 2;
         int endIndex = 5;
-        MutableSequence<int>* result = mutSeq.getSubsequence(startIndex, endIndex);
+        Sequence<int>* result = mutSeq.getSubsequence(startIndex, endIndex);
         for (int i = startIndex; i <= endIndex; ++i) {
             assert(result->get(i - startIndex) == m[i]);
         }
@@ -932,7 +932,7 @@ public:
         ImmutableSequence<int> immutSeq(m, length);
         int startIndex = 2;
         int endIndex = 5;
-        ImmutableSequence<int>* result = immutSeq.getSubsequence(startIndex, endIndex);
+        Sequence<int>* result = immutSeq.getSubsequence(startIndex, endIndex);
         for (int i = startIndex; i <= endIndex; ++i) {
             assert(result->get(i - startIndex) == m[i]);
         }
@@ -955,7 +955,7 @@ public:
         ImmutableSequence<int> immutSeq_1(m_1, 7);
         int m_2[3] = {7, 8, 9};
         ImmutableSequence<int> immutSeq_2(m_2, 3);
-        ImmutableSequence<int>* result = immutSeq_1.concat(immutSeq_2);
+        Sequence<int>* result = immutSeq_1.concat(immutSeq_2);
         int i = 0;
         for (; i < 7; ++i) {
             assert(result->get(i) == m_1[i]);
