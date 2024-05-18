@@ -6,7 +6,7 @@ int main()
     Test test;
     test.startTest();
     
-    start_UI();
+    startUI();
     
     return 0;
 }
