@@ -212,7 +212,7 @@ int selectElementType() {
     return selectedNumber;
 }
 
-void start_UI() {
+void startUI() {
     std::cout << "This is the program to work with the sequence. Let's start!\n\n\n";
     int selectedType = selectElementType();
     if (selectedType == 1) {
