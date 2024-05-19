@@ -53,13 +53,14 @@ public:
         return array[index];
     }
 
-    // Переделано
+    // Переделано 2.0 (теперь размер не теряется)
     DynamicArray<T>& operator=(const DynamicArray<T>& other) {
         delete array;
         array = new T[other.getSize()];
         for (int i = 0; i < other.getSize(); ++i) {
             array[i] = other.get(i);
         }
+        size = other.size;
         return *this; // возвращаем обновленный *this как rvalue;
     }
 
