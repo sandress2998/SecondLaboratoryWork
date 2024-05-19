@@ -34,6 +34,18 @@ private:
         }
         return *bufNode;
     }
+
+    void deleteList() {
+        if (head != nullptr) {
+            Node<T>* bufNode = head->next;
+            while (bufNode != nullptr) {
+                delete head;
+                head = bufNode;
+                bufNode = bufNode->next;
+            }
+            delete head;
+        }
+    }
 public:
     LinkedList(const T* items, int size) {
         if (size < 0) throw std::out_of_range("Entered invalid size.\n");
@@ -72,15 +84,7 @@ public:
     // сделать конструктор LinkedList(const DynamicArray<T>& other) не получится, т.к. файлы LinkedList.h и DynamicArray.h будут содержать друг друга
 
     ~LinkedList() {
-        if (head != nullptr) {
-            Node<T>* bufNode = head->next;
-            while (bufNode != nullptr) {
-                delete head;
-                head = bufNode;
-                bufNode = bufNode->next;
-            }
-            delete head;
-        }
+        deleteList();
     }
 
     T& operator[](int index) const { // можно изменять элемент по ссылке
@@ -91,15 +95,7 @@ public:
     // Переделано
     LinkedList<T>& operator=(const LinkedList<T>& other) {
         // сначала удаляем все элементы
-        if (head != nullptr) {
-            Node<T>* bufNode = head->next;
-            while (bufNode != nullptr) {
-                delete head;
-                head = bufNode;
-                bufNode = bufNode->next;
-            }
-            delete head;
-        }
+        deleteList();
         // заново создаем все элементы
         head = nullptr;
         tail = nullptr;
