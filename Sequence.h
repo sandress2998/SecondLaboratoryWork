@@ -14,16 +14,6 @@ public:
     virtual Sequence<T>* getSubsequence(int startIndex, int endIndex) const = 0;
     virtual Sequence<T>* concat(const Sequence<T>& secondSequence) const = 0;
 
-    bool operator==(const Sequence<T>& sequence) const {
-        if (this->getLength() != sequence.getLength()) return false;
-        for (int i = 0; i < this->getLength(); ++i) {
-            if ((*this)[i] != sequence[i]) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     friend std::ostream& operator<<( std::ostream& os, const Sequence<T>& value ) {
         if (value.getLength() == 0) return os;
         int i = 0;
