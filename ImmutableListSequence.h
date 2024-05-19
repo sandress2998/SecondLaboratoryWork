@@ -36,10 +36,6 @@ public:
         return (*list)[index];
     }
 
-    ImmutableListSequence<T>& operator=(const ImmutableListSequence<T>& other) {
-        return *this;
-    }
-
     T getFirst() const override {
         return list->getFirst();
     }
