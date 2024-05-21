@@ -13,6 +13,7 @@ private:
     ImmutableListSequence<T>* instance() const {
         return new ImmutableListSequence<T>(*this);
     }
+
 public:
     ImmutableListSequence(const T* items, int size): list(new LinkedList<T>(items, size)) {}
     ImmutableListSequence(): list(new LinkedList<T>) {}
@@ -32,8 +33,12 @@ public:
         delete list;
     }
 
-    T operator[] (int index) const override {
+    const T& operator[] (int index) const override {
         return (*list)[index];
+    }
+
+    ImmutableListSequence<T>& operator=(const ImmutableListSequence<T>& other) {
+        return *this;
     }
 
     T getFirst() const override {
@@ -72,12 +77,19 @@ public:
 
     ImmutableListSequence<T>* getSubsequence(int startIndex, int endIndex) const override {
         if (startIndex > endIndex || startIndex < 0 || endIndex >= this->getLength()) throw std::out_of_range("Entered indices are out of range.\n");
-        return new ImmutableListSequence<T>(*this->list->getSubsequence(startIndex, endIndex));
+        ImmutableListSequence<T>* result = new ImmutableListSequence<T>;
+        for (int i = startIndex; i <= endIndex; ++i) {
+            result->list->append(get(i));
+        }
+        return result;
     }
 
     ImmutableListSequence<T>* concat(const Sequence<T>& other) const override {
-        LinkedList<T> bufList(other);
-        return new ImmutableListSequence<T>(*list->concat(&bufList));
+        ImmutableListSequence<T>* result = instance();
+        for (int i = 0; i < other.getLength(); ++i) {
+            result->list->append(other.get(i));
+        }
+        return result;
     }
 };
 
