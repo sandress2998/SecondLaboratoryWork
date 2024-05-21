@@ -7,7 +7,7 @@
 #include "MutableArraySequence.h"
 
 
-// !!! Здесь используются шаблоны, поэтому методы класса в файле .h
+// !!! Здесь используются шаблоны, поэтому определение методов класса в файле .h
 
 template<template<class> class ImmutableSequence>
 class TestImmutableSequence {
