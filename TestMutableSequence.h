@@ -6,6 +6,8 @@
 #include "Sequence.h"
 #include "ImmutableArraySequence.h"
 
+// !!! Здесь используются шаблоны, поэтому определение методов в файле .h
+
 template<template<class> class MutableSequence>
 class TestMutableSequence {
 public:
@@ -22,58 +24,59 @@ public:
         testGetSubsequence();
         testGetFirst();
         testGetLast();
+        testAssignmentOperator();
     }
 
     void testConstructors() {
 
-        int length = 5;
-        MutableSequence<int> mutSeq_1(length);
-        assert(mutSeq_1.getLength() == length);
+        int length = 7;
+        MutableSequence<int> mutSeq1(length);
+        assert(mutSeq1.getLength() == length);
         try {
-            MutableSequence<int> mutSeq_except(-1);
+            MutableSequence<int> mutSeqexcept(-1);
             assert(false);
         } catch (std::out_of_range&) {}
 
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        MutableSequence<int> mutSeq_2(m, 7);
-        assert(mutSeq_2.getLength() == 7);
-        for (int i = 0; i < mutSeq_2.getLength(); ++i) {
-            assert(mutSeq_2.get(i) == m[i]);
+        MutableSequence<int> mutSeq2(m, 7);
+        assert(mutSeq2.getLength() == 7);
+        for (int i = 0; i < mutSeq2.getLength(); ++i) {
+            assert(mutSeq2.get(i) == m[i]);
         }
         try {
-            MutableSequence<int> mutSeq_except(m, -1);
+            MutableSequence<int> mutSeqexcept(m, -1);
             assert(false);
         } catch (std::out_of_range&) {}
 
 
-        MutableSequence<int> mutSeq_3(mutSeq_2);
-        assert(mutSeq_3.getLength() == mutSeq_2.getLength());
-        for (int i = 0; i < mutSeq_3.getLength(); ++i) {
-            assert(mutSeq_3.get(i) == mutSeq_3.get(i));
+        MutableSequence<int> mutSeq3(mutSeq2);
+        assert(mutSeq3.getLength() == mutSeq2.getLength());
+        for (int i = 0; i < mutSeq3.getLength(); ++i) {
+            assert(mutSeq3.get(i) == mutSeq3.get(i));
         }
 
         LinkedList<int> ll(m, 7);
-        MutableSequence<int> mutSeq_4(ll);
-        assert(mutSeq_4.getLength() == ll.getLength());
-        for (int i = 0; i < mutSeq_4.getLength(); ++i) {
-            assert(mutSeq_4.get(i) == ll.get(i));
+        MutableSequence<int> mutSeq4(ll);
+        assert(mutSeq4.getLength() == ll.getLength());
+        for (int i = 0; i < mutSeq4.getLength(); ++i) {
+            assert(mutSeq4.get(i) == ll.get(i));
         }
 
         DynamicArray<int> da(m,7);
-        MutableSequence<int> mutSeq_5(ll);
-        assert(mutSeq_5.getLength() == da.getSize());
-        for (int i = 0; i < mutSeq_5.getLength(); ++i) {
-            assert(mutSeq_5.get(i) == da.get(i));
+        MutableSequence<int> mutSeq5(ll);
+        assert(mutSeq5.getLength() == da.getSize());
+        for (int i = 0; i < mutSeq5.getLength(); ++i) {
+            assert(mutSeq5.get(i) == da.get(i));
         }
 
-        MutableSequence<int> mutSeq_6;
-        assert(mutSeq_6.getLength() == 0);
+        MutableSequence<int> mutSeq6;
+        assert(mutSeq6.getLength() == 0);
 
         ImmutableArraySequence<int> immutArrSeq(m ,7);
-        MutableSequence<int> mutSeq_7(immutArrSeq);
-        assert(mutSeq_7.getLength() == immutArrSeq.getLength());
+        MutableSequence<int> mutSeq7(immutArrSeq);
+        assert(mutSeq7.getLength() == immutArrSeq.getLength());
         for (int i = 0; i < 7; ++i) {
-            assert(mutSeq_7.get(i) == immutArrSeq.get(i));
+            assert(mutSeq7.get(i) == immutArrSeq.get(i));
         }
 
     }
@@ -141,8 +144,8 @@ public:
         MutableSequence<int> mutSeq(m, length);
         assert(mutSeq.getFirst() == m[0]);
         try {
-            MutableSequence<int> mutSeq_except;
-            mutSeq_except.getFirst();
+            MutableSequence<int> mutSeqexcept;
+            mutSeqexcept.getFirst();
             assert(false);
         } catch (std::out_of_range&) {}
     }
@@ -153,8 +156,8 @@ public:
         MutableSequence<int> mutSeq(m, length);
         assert(mutSeq.getLast() == m[6]);
         try {
-            MutableSequence<int> mutSeq_except;
-            mutSeq_except.getLast();
+            MutableSequence<int> mutSeqexcept;
+            mutSeqexcept.getLast();
             assert(false);
         } catch (std::out_of_range&) {}
     }
@@ -178,9 +181,9 @@ public:
         }
         assert(mutSeq.get(7) == elem);
 
-        MutableSequence<int> mutSeq_2;
-        mutSeq_2.append(elem);
-        assert(mutSeq_2.get(0) == elem);
+        MutableSequence<int> mutSeq2;
+        mutSeq2.append(elem);
+        assert(mutSeq2.get(0) == elem);
     }
 
     void testPrepend() {
@@ -195,9 +198,9 @@ public:
             assert(mutSeq.get(i) == m[i - 1]);
         }
 
-        MutableSequence<int> mutSeq_2;
-        mutSeq_2.prepend(elem);
-        assert(mutSeq_2.get(0) == elem);
+        MutableSequence<int> mutSeq2;
+        mutSeq2.prepend(elem);
+        assert(mutSeq2.get(0) == elem);
     }
 
     void testInsertAt() {
@@ -233,9 +236,9 @@ public:
             assert(false);
         } catch (std::out_of_range&) {}
 
-        MutableSequence<int> mutSeq_2;
-        mutSeq_2.insertAt(0, elem);
-        assert(mutSeq_2.get(0) == elem);
+        MutableSequence<int> mutSeq2;
+        mutSeq2.insertAt(0, elem);
+        assert(mutSeq2.get(0) == elem);
     }
 
     void testGetSubsequence() {
@@ -263,17 +266,35 @@ public:
     }
 
     void testConcat() {
-        int m_1[7] = {0, 1, 2, 3, 4, 5, 6};
-        MutableSequence<int> mutSeq_1(m_1, 7);
-        int m_2[3] = {7, 8, 9};
-        MutableSequence<int> mutSeq_2(m_2, 3);
-        Sequence<int>* result = mutSeq_1.concat(mutSeq_2);
+        int m1[7] = {0, 1, 2, 3, 4, 5, 6};
+        MutableSequence<int> mutSeq1(m1, 7);
+        int m2[3] = {7, 8, 9};
+        MutableSequence<int> mutSeq2(m2, 3);
+        Sequence<int>* result = mutSeq1.concat(mutSeq2);
         int i = 0;
         for (; i < 7; ++i) {
-            assert(result->get(i) == m_1[i]);
+            assert(result->get(i) == m1[i]);
         }
         for (; i < 10; ++i) {
-            assert(result->get(i) == m_2[i - 7]);
+            assert(result->get(i) == m2[i - 7]);
+        }
+    }
+
+    void testAssignmentOperator() {
+        int length = 7;
+        int m[7] = {0, 1, 2, 3, 4, 5, 6};
+        MutableSequence<int> mutSeq1(m, length);
+        MutableSequence<int> mutSeq2(0);
+        mutSeq2 = mutSeq1;
+        assert(mutSeq2.getLength() == mutSeq1.getLength());
+        for (int i = 0; i < length; ++i) {
+            assert(mutSeq2[i] == mutSeq1[i]);
+        }
+        for (int i = 0; i < length; ++i) {
+            mutSeq1[i] = i * 100;
+        }
+        for (int i = 0; i < length; ++i) {
+            assert(mutSeq2[i] == m[i]);
         }
     }
 };
