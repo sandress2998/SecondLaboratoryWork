@@ -46,6 +46,7 @@ private:
             delete head;
         }
     }
+
 public:
     LinkedList(const T* items, int size) {
         if (size < 0) throw std::out_of_range("Entered invalid size.\n");
@@ -87,9 +88,18 @@ public:
         deleteList();
     }
 
-    T& operator[](int index) const { // можно изменять элемент по ссылке
+    int getLength() const {
+        return size;
+    }
+
+    T& operator[](int index) {
         // getNode(index) выбросит исключение
         return getNode(index).value;
+    }
+
+    const T& operator[](int index) const {
+        // getNode(index) выбросит исключение
+        return  getNode(index).value;
     }
 
     // Переделано
@@ -117,25 +127,10 @@ public:
     }
 
     T get(int index) const {
-        return getNode(index).value;
+        return const_cast<T&>((const_cast<LinkedList<T>&>(*this))[index]);
     }
 
-    LinkedList<T>* getSubsequence(int startIndex, int endIndex) const {
-        if (startIndex > endIndex || startIndex < 0 || endIndex >= this->getLength()) throw std::out_of_range("Entered indices are out of range.\n");
-        LinkedList<T>* result_ll = new LinkedList<T>;
-        Node<T>* bufNode = &getNode(startIndex);
-        for (int i = startIndex; i <= endIndex; ++i) {
-            result_ll->append(bufNode->value);
-            bufNode = bufNode->next;
-        }
-        return result_ll;
-    }
-
-    int getLength() const {
-        return size;
-    }
-
-    void set(int index, const T& value) const {
+    void set(int index, const T& value) {
         // конструкция (*this)[index] выбросывает исключение
         (*this)[index] = value;
     }
@@ -179,15 +174,24 @@ public:
         }
     }
 
-    LinkedList<T>* concat(LinkedList<T>* second_ll) const { // сцепляет два списка
-        LinkedList<T>* result_ll = new LinkedList<T>;
+    LinkedList<T>* concat(const LinkedList<T>* other) const { // сцепляет два списка
+        LinkedList<T>* result = new LinkedList<T>;
         for (int i = 0; i < size; ++i) {
-            result_ll->append(getNode(i).value);
+            result->append((*this)[i]);
         }
-        for (int j = 0; j < second_ll->getLength(); ++j) {
-            result_ll->append(second_ll->get(j));
+        for (int j = 0; j < other->getLength(); ++j) {
+            result->append((*other)[j]);
         }
-        return result_ll;
+        return result;
+    }
+
+    LinkedList<T>* getSubsequence(int startIndex, int endIndex) const {
+        if (startIndex > endIndex || startIndex < 0 || endIndex >= this->getLength()) throw std::out_of_range("Entered indices are out of range.\n");
+        LinkedList<T>* result = new LinkedList<T>;
+        for (int i = startIndex; i <= endIndex; ++i) {
+            result->append((*this)[i]);
+        }
+        return result;
     }
 
     friend std::ostream& operator << (std::ostream& os, const LinkedList<T>& value) {
