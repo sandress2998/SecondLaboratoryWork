@@ -23,13 +23,17 @@ public:
         delete array;
     }
 
-    T& operator[](int index) const override {
+    T& operator[](int index) override {
+        return (*array)[index];
+    }
+
+    const T& operator [] (int index) const override {
         return (*array)[index];
     }
 
     // Переделано
     MutableArraySequence<T>& operator=(const MutableArraySequence<T>& other) {
-       array = other.array;
+       *array = *other.array;
        return *this;
     }
 
@@ -54,33 +58,15 @@ public:
     }
 
     void append(const T& item) override {
-        array->resize(getLength() + 1);
-        (*this)[getLength() - 1] = item;
+        array->append(item);
     }
 
     void prepend(const T& item) override {
-        DynamicArray<T> bufArray(*array);
-        int resSize = getLength() + 1;
-        array->resize(resSize);
-        (*this)[0] = item;
-        for (int i = 1; i < resSize; ++i) {
-            (*this)[i] = bufArray[i - 1];
-        }
+        array->prepend(item);
     }
 
     void insertAt(int index, const T& item) override {
-        if (index < 0 || index > array->getSize()) throw std::out_of_range("Entered indices are out of range.\n");
-        int resSize = getLength() + 1;
-        DynamicArray<T> bufArray(*array);
-        array->resize(resSize);
-        int i = 0;
-        for (; i < index; ++i) {
-            (*this)[i] = bufArray[i];
-        }
-        (*this)[i++] = item;
-        for (; i < resSize; ++i) {
-            (*this)[i] = bufArray[i - 1];
-        }
+        array->insertAt(index, item);
     }
 
     MutableArraySequence<T>* getSubsequence(int startIndex, int endIndex) const override {
