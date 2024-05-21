@@ -15,4 +15,5 @@ public:
     void testInsertAt();
     void testConcat();
     void testGetSubsequence();
+    void testAssignmentOperator();
 };
