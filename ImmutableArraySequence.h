@@ -13,6 +13,11 @@ private:
     ImmutableArraySequence<T>* instance() const {
         return new ImmutableArraySequence<T>(*this);
     }
+
+    void add(const T& item) {
+        array->append(item);
+    }
+
 public:
     ImmutableArraySequence(const T* arrayToCopy, int size): array(new DynamicArray<T>(arrayToCopy, size)) {}
     ImmutableArraySequence(int size): array(new DynamicArray<T>(size)) {}
@@ -26,12 +31,8 @@ public:
         delete array;
     }
 
-    T operator[](int index) const override {
+    const T& operator[](int index) const override {
         return (*array)[index];
-    }
-
-    ImmutableArraySequence<T>& operator=(const ImmutableArraySequence<T>& other) {
-        return *this;
     }
 
     T getFirst() const override {
@@ -51,30 +52,41 @@ public:
     }
 
     ImmutableArraySequence<T>* append(const T& item) const override {
-        MutableArraySequence<T> other(*this);
-        other.append(item);
-        return new ImmutableArraySequence(other);
+        ImmutableArraySequence<T>* result = instance();
+        result->array->append(item);
+        return result;
     }
 
     ImmutableArraySequence<T>* prepend(const T& item) const override {
-        MutableArraySequence<T> other(*this);
-        other.prepend(item);
-        return new ImmutableArraySequence(other);
+        ImmutableArraySequence<T>* result = instance();
+        result->array->prepend(item);
+        return result;
     }
 
     ImmutableArraySequence<T>* insertAt(int index, const T& item) const override {
-        MutableArraySequence<T> other(*this);
-        other.insertAt(index, item);
-        return new ImmutableArraySequence(other);
+        ImmutableArraySequence<T>* result = instance();
+        result->array->insertAt(index, item);
+        return result;
     }
 
     ImmutableArraySequence<T>* getSubsequence(int startIndex, int endIndex) const override {
-        MutableArraySequence<T> other(*this);
-        return new ImmutableArraySequence<T>(*other.getSubsequence(startIndex, endIndex));;
+        if (startIndex < 0 || endIndex >= getLength() || startIndex > endIndex) throw std::out_of_range("Entered indices are out of range.\n");
+        ImmutableArraySequence<T>* result = new ImmutableArraySequence<T>;
+        for (int i = startIndex; i <= endIndex; ++i) {
+            result->add(get(i));
+        }
+        return result;
     }
 
     ImmutableArraySequence<T>* concat(const Sequence<T>& other) const override {
-        MutableArraySequence<T> buf(*this);
-        return new ImmutableArraySequence<T>(*buf.concat(other));
+        ImmutableArraySequence<T>* result = new ImmutableArraySequence<T>;
+        int i = 0;
+        for (; i < getLength(); ++i) {
+            result->add(get(i));
+        }
+        for (; i < getLength() + other.getLength(); ++i) {
+            result->add(other.get(i - getLength()));
+        }
+        return result;
     }
 };
