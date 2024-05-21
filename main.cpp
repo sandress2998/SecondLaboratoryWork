@@ -1,12 +1,12 @@
-#include "StartUI.h";
-#include "Test.h"
+#include <iostream>
 
-int main()
-{
+#include "Test.h"
+#include "UI.h"
+
+int main() {
     Test test;
     test.startTest();
-    
+
     startUI();
-    
     return 0;
 }
