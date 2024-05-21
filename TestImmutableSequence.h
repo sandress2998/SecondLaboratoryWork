@@ -6,6 +6,9 @@
 #include "Sequence.h"
 #include "MutableArraySequence.h"
 
+
+// !!! Здесь используются шаблоны, поэтому методы класса в файле .h
+
 template<template<class> class ImmutableSequence>
 class TestImmutableSequence {
 public:
@@ -25,52 +28,52 @@ public:
 
     void testConstructors() {
         int length = 5;
-        ImmutableSequence<int> immutSeq_1(length);
-        assert(immutSeq_1.getLength() == length);
+        ImmutableSequence<int> immutSeq1(length);
+        assert(immutSeq1.getLength() == length);
         try {
-            ImmutableSequence<int> immutSeq_except(-1);
+            ImmutableSequence<int> immutSeqexcept(-1);
             assert(false);
         } catch (std::out_of_range&) {}
 
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
-        ImmutableSequence<int> immutSeq_2(m, 7);
-        assert(immutSeq_2.getLength() == 7);
-        for (int i = 0; i < immutSeq_2.getLength(); ++i) {
-            assert(immutSeq_2.get(i) == m[i]);
+        ImmutableSequence<int> immutSeq2(m, 7);
+        assert(immutSeq2.getLength() == 7);
+        for (int i = 0; i < immutSeq2.getLength(); ++i) {
+            assert(immutSeq2.get(i) == m[i]);
         }
         try {
-            ImmutableSequence<int> immutSeq_except(m, -1);
+            ImmutableSequence<int> immutSeqexcept(m, -1);
             assert(false);
         } catch (std::out_of_range&) {}
 
-        ImmutableSequence<int> immutSeq_3(immutSeq_2);
-        assert(immutSeq_3.getLength() == immutSeq_2.getLength());
-        for (int i = 0; i < immutSeq_3.getLength(); ++i) {
-            assert(immutSeq_3.get(i) == immutSeq_3.get(i));
+        ImmutableSequence<int> immutSeq3(immutSeq2);
+        assert(immutSeq3.getLength() == immutSeq2.getLength());
+        for (int i = 0; i < immutSeq3.getLength(); ++i) {
+            assert(immutSeq3.get(i) == immutSeq3.get(i));
         }
 
         LinkedList<int> ll(m, 7);
-        ImmutableSequence<int> immutSeq_4(ll);
-        assert(immutSeq_4.getLength() == ll.getLength());
-        for (int i = 0; i < immutSeq_4.getLength(); ++i) {
-            assert(immutSeq_4.get(i) == ll.get(i));
+        ImmutableSequence<int> immutSeq4(ll);
+        assert(immutSeq4.getLength() == ll.getLength());
+        for (int i = 0; i < immutSeq4.getLength(); ++i) {
+            assert(immutSeq4.get(i) == ll.get(i));
         }
 
         DynamicArray<int> da(m,7);
-        ImmutableSequence<int> immutSeq_5(ll);
-        assert(immutSeq_5.getLength() == da.getSize());
-        for (int i = 0; i < immutSeq_5.getLength(); ++i) {
-            assert(immutSeq_5.get(i) == da.get(i));
+        ImmutableSequence<int> immutSeq5(ll);
+        assert(immutSeq5.getLength() == da.getSize());
+        for (int i = 0; i < immutSeq5.getLength(); ++i) {
+            assert(immutSeq5.get(i) == da.get(i));
         }
 
-        ImmutableSequence<int> immutSeq_6;
-        assert(immutSeq_6.getLength() == 0);
+        ImmutableSequence<int> immutSeq6;
+        assert(immutSeq6.getLength() == 0);
 
         MutableArraySequence<int> mutArrSeq(m ,7);
-        ImmutableSequence<int> immutSeq_7(mutArrSeq);
-        assert(immutSeq_7.getLength() == mutArrSeq.getLength());
+        ImmutableSequence<int> immutSeq7(mutArrSeq);
+        assert(immutSeq7.getLength() == mutArrSeq.getLength());
         for (int i = 0; i < 7; ++i) {
-            assert(immutSeq_7.get(i) == mutArrSeq.get(i));
+            assert(immutSeq7.get(i) == mutArrSeq.get(i));
         }
     }
 
@@ -115,8 +118,8 @@ public:
         ImmutableSequence<int> immutSeq(m, length);
         assert(immutSeq.getFirst() == 0);
         try {
-            ImmutableSequence<int> immutSeq_except;
-            immutSeq_except.getFirst();
+            ImmutableSequence<int> immutSeqexcept;
+            immutSeqexcept.getFirst();
             assert(false);
         } catch (std::out_of_range&) {}
     }
@@ -127,8 +130,8 @@ public:
         ImmutableSequence<int> immutSeq(m, length);
         assert(immutSeq.getLast() == 6);
         try {
-            ImmutableSequence<int> immutSeq_except;
-            immutSeq_except.getLast();
+            ImmutableSequence<int> immutSeqexcept;
+            immutSeqexcept.getLast();
             assert(false);
         } catch (std::out_of_range&) {}
     }
@@ -145,20 +148,20 @@ public:
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
         ImmutableSequence<int> immutSeq(m, length);
         int elem = 100;
-        Sequence<int>* immutSeq_2 = immutSeq.append(elem);
-        assert(immutSeq_2->getLength() == 8);
+        Sequence<int>* immutSeq2 = immutSeq.append(elem);
+        assert(immutSeq2->getLength() == 8);
         assert(immutSeq.getLength() == 7);
         for (int i = 0; i < immutSeq.getLength(); ++i) {
             assert(immutSeq.get(i) == m[i]);
-            assert(immutSeq_2->get(i) == m[i]);
+            assert(immutSeq2->get(i) == m[i]);
         }
-        assert(immutSeq_2->get(7) == elem);
-        delete immutSeq_2;
+        assert(immutSeq2->get(7) == elem);
+        delete immutSeq2;
 
-        ImmutableSequence<int> immutSeq_3; // пустая последовательность
-        ImmutableSequence<int>* immutSeq_4 = immutSeq_3.append(elem);
-        assert(immutSeq_4->get(0) == elem);
-        delete immutSeq_4;
+        ImmutableSequence<int> immutSeq3; // пустая последовательность
+        ImmutableSequence<int>* immutSeq4 = immutSeq3.append(elem);
+        assert(immutSeq4->get(0) == elem);
+        delete immutSeq4;
     }
 
     void testPrepend() {
@@ -166,20 +169,20 @@ public:
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
         ImmutableSequence<int> immutSeq(m, length);
         int elem = 100;
-        Sequence<int>* immutSeq_2 = immutSeq.prepend(elem);
+        Sequence<int>* immutSeq2 = immutSeq.prepend(elem);
         assert(immutSeq.getLength() == 7);
-        assert(immutSeq_2->getLength() == 8);
-        assert(immutSeq_2->get(0) == elem);
+        assert(immutSeq2->getLength() == 8);
+        assert(immutSeq2->get(0) == elem);
         for (int i = 1; i < 8; ++i) {
             assert(immutSeq.get(i - 1) == m[i - 1]);
-            assert(immutSeq_2->get(i) == m[i - 1]);
+            assert(immutSeq2->get(i) == m[i - 1]);
         }
-        delete immutSeq_2;
+        delete immutSeq2;
 
-        ImmutableSequence<int> immutSeq_3; // пустая последовательность
-        ImmutableSequence<int>* immutSeq_4 = immutSeq_3.prepend(elem);
-        assert(immutSeq_4->get(0) == elem);
-        delete immutSeq_4;
+        ImmutableSequence<int> immutSeq3; // пустая последовательность
+        ImmutableSequence<int>* immutSeq4 = immutSeq3.prepend(elem);
+        assert(immutSeq4->get(0) == elem);
+        delete immutSeq4;
     }
 
     void testInsertAt() {
@@ -187,51 +190,51 @@ public:
         int m[7] = {0, 1, 2, 3, 4, 5, 6};
         ImmutableSequence<int> immutSeq(m, length);
 
-        Sequence<int>* immutSeq_2;
+        Sequence<int>* immutSeq2;
         int elem = 100;
         int index = 3;
-        immutSeq_2 = immutSeq.insertAt(index, elem);
+        immutSeq2 = immutSeq.insertAt(index, elem);
         assert(immutSeq.getLength() == 7);
-        assert(immutSeq_2->getLength() == 8);
+        assert(immutSeq2->getLength() == 8);
         int i = 0;
         for (; i < index; ++i) {
-            assert(immutSeq_2->get(i) == m[i]);
+            assert(immutSeq2->get(i) == m[i]);
             assert(immutSeq.get(i) == m[i]);
         }
-        assert(immutSeq_2->get(i++) == elem);
-        for (; i < immutSeq_2->getLength(); ++i) {
-            assert(immutSeq_2->get(i) == m[i - 1]);
+        assert(immutSeq2->get(i++) == elem);
+        for (; i < immutSeq2->getLength(); ++i) {
+            assert(immutSeq2->get(i) == m[i - 1]);
             assert(immutSeq.get(i - 1) == m[i - 1]);
         }
-        delete immutSeq_2;
+        delete immutSeq2;
 
         // крайний случай
         elem = 100;
         index = 0;
-        immutSeq_2 = immutSeq.insertAt(index, elem);
+        immutSeq2 = immutSeq.insertAt(index, elem);
         assert(immutSeq.getLength() == 7);
-        assert(immutSeq_2->getLength() == 8);
+        assert(immutSeq2->getLength() == 8);
         i = 0;
-        assert(immutSeq_2->get(i++) == elem);
-        for (; i < immutSeq_2->getLength(); ++i) {
-            assert(immutSeq_2->get(i) == m[i - 1]);
+        assert(immutSeq2->get(i++) == elem);
+        for (; i < immutSeq2->getLength(); ++i) {
+            assert(immutSeq2->get(i) == m[i - 1]);
             assert(immutSeq.get(i - 1) == m[i - 1]);
         }
-        delete immutSeq_2;
+        delete immutSeq2;
 
         // крайний случай
         elem = 100;
         index = 7;
-        immutSeq_2 = immutSeq.insertAt(index, elem);
+        immutSeq2 = immutSeq.insertAt(index, elem);
         assert(immutSeq.getLength() == 7);
-        assert(immutSeq_2->getLength() == 8);
+        assert(immutSeq2->getLength() == 8);
         i = 0;
         for (; i < index; ++i) {
-            assert(immutSeq_2->get(i) == m[i]);
+            assert(immutSeq2->get(i) == m[i]);
             assert(immutSeq.get(i) == m[i]);
         }
-        assert(immutSeq_2->get(i++) == elem);
-        delete immutSeq_2;
+        assert(immutSeq2->get(i++) == elem);
+        delete immutSeq2;
 
         try {
             immutSeq.insertAt(-1, elem);
@@ -244,10 +247,10 @@ public:
         } catch (std::out_of_range&) {}
 
 
-        ImmutableSequence<int> immutSeq_3; // пустая последовательность
-        ImmutableSequence<int>* immutSeq_4 = immutSeq_3.insertAt(0, elem);
-        assert(immutSeq_4->get(0) == elem);
-        delete immutSeq_4;
+        ImmutableSequence<int> immutSeq3; // пустая последовательность
+        ImmutableSequence<int>* immutSeq4 = immutSeq3.insertAt(0, elem);
+        assert(immutSeq4->get(0) == elem);
+        delete immutSeq4;
     }
 
     void testGetSubsequence() {
@@ -275,17 +278,18 @@ public:
     }
 
     void testConcat() {
-        int m_1[7] = {0, 1, 2, 3, 4, 5, 6};
-        ImmutableSequence<int> immutSeq_1(m_1, 7);
-        int m_2[3] = {7, 8, 9};
-        ImmutableSequence<int> immutSeq_2(m_2, 3);
-        Sequence<int>* result = immutSeq_1.concat(immutSeq_2);
+        int m1[7] = {0, 1, 2, 3, 4, 5, 6};
+        ImmutableSequence<int> immutSeq1(m1, 7);
+        int m2[3] = {7, 8, 9};
+        ImmutableSequence<int> immutSeq2(m2, 3);
+        Sequence<int>* result = immutSeq1.concat(immutSeq2);
         int i = 0;
         for (; i < 7; ++i) {
-            assert(result->get(i) == m_1[i]);
+            assert(result->get(i) == m1[i]);
         }
         for (; i < 10; ++i) {
-            assert(result->get(i) == m_2[i - 7]);
+            assert(result->get(i) == m2[i - 7]);
         }
     }
 };
+
