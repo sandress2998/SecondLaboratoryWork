@@ -7,89 +7,80 @@
 #include "DynamicArray.h"
 
 template <typename T>
-class MutableArraySequence: public MutableSequence<T> {
+class MutableListSequence: public MutableSequence<T> {
 private:
-    DynamicArray<T>* array;
-public:
-    MutableArraySequence(const T* arrayToCopy, int size): array(new DynamicArray<T>(arrayToCopy, size)) {}
-    MutableArraySequence(int size): array(new DynamicArray<T>(size)) {}
-    MutableArraySequence(): array(new DynamicArray<T>(0)) {}
-    MutableArraySequence(const LinkedList<T>& other): array(new DynamicArray<T>(other)) {}
-    MutableArraySequence(const DynamicArray<T>& other): array(new DynamicArray<T>(other)) {}
-    MutableArraySequence(const Sequence<T>& other): array(new DynamicArray<T>(other)) {}
-    MutableArraySequence(const MutableArraySequence<T>& other): array(new DynamicArray<T>(*(other.array))) {}
+    LinkedList<T>* list;
 
-    ~MutableArraySequence() override {
-        delete array;
+public:
+    MutableListSequence(const T* items, int size): list(new LinkedList<T>(items, size)) {}
+    MutableListSequence(): list(new LinkedList<T>) {}
+    MutableListSequence(int size): list(new LinkedList<T>(size)) {}
+    MutableListSequence(const MutableListSequence<T>& other): list(new LinkedList<T>(*other.list)) {}
+    MutableListSequence(const Sequence<T>& other): list(new LinkedList<T>(other)) {}
+    MutableListSequence(const LinkedList<T>& other): list(new LinkedList<T>(other)) {}
+    MutableListSequence(const DynamicArray<T>& other): list(new LinkedList<T>) {
+        for (int i = 0; i < other.getSize(); ++i) {
+            append(other[i]);
+        }
     }
 
-    T& operator[](int index) override {
-        return (*array)[index];
+    ~MutableListSequence() override {
+        delete list;
+    }
+
+    T& operator [] (int index) override {
+        return (*list)[index];
     }
 
     const T& operator [] (int index) const override {
-        return (*array)[index];
+        return (*list)[index];
     }
 
     // Переделано
-    MutableArraySequence<T>& operator=(const MutableArraySequence<T>& other) {
-       *array = *other.array;
-       return *this;
+    MutableListSequence<T>& operator=(const MutableListSequence<T>& other) {
+        *list = *other.list;
+        return *this;
     }
 
     T getFirst() const override {
-        return (*array)[0];
+        return list->getFirst();
     }
 
     T getLast() const override {
-        return (*array)[getLength() - 1];
+        return list->getLast();
     }
 
     T get(int index) const override {
-        return (*array)[index];
+        return (*list)[index];
     }
 
     void set(int index, const T& value) override {
-        (*array)[index] = value;
+        return list->set(index, value);
     }
 
     int getLength() const override {
-        return array->getSize();
+        return list->getLength();
     }
 
     void append(const T& item) override {
-        array->append(item);
+        list->append(item);
     }
 
     void prepend(const T& item) override {
-        array->prepend(item);
+        list->prepend(item);
     }
 
     void insertAt(int index, const T& item) override {
-        array->insertAt(index, item);
+        list->insertAt(index, item);
     }
 
-    MutableArraySequence<T>* getSubsequence(int startIndex, int endIndex) const override {
+    MutableListSequence<T>* getSubsequence(int startIndex, int endIndex) const override {
         if (startIndex > endIndex || startIndex < 0 || endIndex >= this->getLength()) throw std::out_of_range("Entered indices are out of range.\n");
-        MutableArraySequence<T>* result = new MutableArraySequence<T>(endIndex - startIndex + 1);
-        // делаем копирование элементов array
-        for (int i = 0; i < result->getLength(); ++i) {
-            (*result)[i] = get(i + startIndex);
-        }
-        return result;
+        return new MutableListSequence<T>(*this->list->getSubsequence(startIndex, endIndex));
     }
 
-    MutableArraySequence<T>* concat(const Sequence<T>& other) const override {
-        MutableArraySequence<T>* result = new MutableArraySequence<T>(other.getLength() + getLength());
-        int i = 0;
-        int length = getLength();
-        for (; i < length; ++i) {
-            (*result)[i] = get(i);
-        }
-        for (; i < length + other.getLength(); ++i) {
-            (*result)[i] = other.get(i - length);
-        }
-        return result;
+    MutableListSequence<T>* concat(const Sequence<T>& other) const override {
+        LinkedList<T> bufList(other);
+        return new MutableListSequence<T>(*list->concat(&bufList));
     }
 };
-
