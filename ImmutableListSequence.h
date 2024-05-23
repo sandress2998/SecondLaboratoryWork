@@ -75,6 +75,12 @@ public:
         return result;
     }
 
+    ImmutableListSequence<T>* set(int index, const T& item) const override {
+        ImmutableListSequence<T>* result = instance();
+        result->list->set(index, item);
+        return result;
+    }
+
     ImmutableListSequence<T>* getSubsequence(int startIndex, int endIndex) const override {
         if (startIndex > endIndex || startIndex < 0 || endIndex >= this->getLength()) throw std::out_of_range("Entered indices are out of range.\n");
         ImmutableListSequence<T>* result = new ImmutableListSequence<T>;
