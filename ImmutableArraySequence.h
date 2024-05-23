@@ -69,6 +69,12 @@ public:
         return result;
     }
 
+    ImmutableArraySequence<T>* set(int index, const T& item) const override {
+        ImmutableArraySequence<T>* result = instance();
+        result->array->set(index, item);
+        return result;
+    }
+
     ImmutableArraySequence<T>* getSubsequence(int startIndex, int endIndex) const override {
         if (startIndex < 0 || endIndex >= getLength() || startIndex > endIndex) throw std::out_of_range("Entered indices are out of range.\n");
         ImmutableArraySequence<T>* result = new ImmutableArraySequence<T>;
