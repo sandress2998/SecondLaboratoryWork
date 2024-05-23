@@ -64,12 +64,14 @@ public:
     }
 
     ImmutableArraySequence<T>* insertAt(int index, const T& item) const override {
+        if (index > getLength() || index < 0) throw std::out_of_range("The entered index is out of range.\n");
         ImmutableArraySequence<T>* result = instance();
         result->array->insertAt(index, item);
         return result;
     }
 
     ImmutableArraySequence<T>* set(int index, const T& item) const override {
+        if (index >= getLength() || index < 0) throw std::out_of_range("The entered index is out of range.\n");
         ImmutableArraySequence<T>* result = instance();
         result->array->set(index, item);
         return result;
@@ -95,4 +97,5 @@ public:
         }
         return result;
     }
+
 };
