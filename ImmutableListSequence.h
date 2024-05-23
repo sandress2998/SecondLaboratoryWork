@@ -70,12 +70,14 @@ public:
     }
 
     ImmutableListSequence<T>* insertAt(int index, const T& item) const override {
+        if (index > getLength() || index < 0) throw std::out_of_range("The entered index is out of range.\n");
         ImmutableListSequence<T>* result = instance();
         result->list->insertAt(index, item);
         return result;
     }
 
     ImmutableListSequence<T>* set(int index, const T& item) const override {
+        if (index >= getLength() || index < 0) throw std::out_of_range("The entered index is out of range.\n");
         ImmutableListSequence<T>* result = instance();
         result->list->set(index, item);
         return result;
@@ -98,5 +100,3 @@ public:
         return result;
     }
 };
-
-
