@@ -24,6 +24,7 @@ public:
         testGetSubsequence();
         testGetFirst();
         testGetLast();
+        testSet();
     }
 
     void testConstructors() {
@@ -251,6 +252,36 @@ public:
         ImmutableSequence<int>* immutSeq4 = immutSeq3.insertAt(0, elem);
         assert(immutSeq4->get(0) == elem);
         delete immutSeq4;
+    }
+
+    void testSet() {
+        int length = 7;
+        int m[7] = {0, 1, 2, 3, 4, 5, 6};
+        ImmutableSequence<int> immutSeq(m, length);
+
+        int index = 3;
+        int elem = 100;
+        ImmutableSequence<int>* immutSeq2 = immutSeq.set(index, elem);
+        assert(immutSeq.getLength() == length);
+        assert(immutSeq2->getLength() == length);
+        for (int i = 0; i < length; ++i) {
+            if (i != index) {
+                assert(immutSeq[i] == (*immutSeq2)[i]);
+            } else {
+                assert(immutSeq[i] == m[i]);
+                assert((*immutSeq2)[i] == elem);
+            }
+        }
+        delete immutSeq2;
+
+        try {
+            immutSeq2 = immutSeq.set(-1, elem);
+            assert(false);
+        } catch (std::out_of_range) {}
+        try {
+            immutSeq2 = immutSeq.set(length, elem);
+            assert(false);
+        } catch (std::out_of_range) {}
     }
 
     void testGetSubsequence() {
