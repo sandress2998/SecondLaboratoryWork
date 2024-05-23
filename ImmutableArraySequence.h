@@ -14,10 +14,6 @@ private:
         return new ImmutableArraySequence<T>(*this);
     }
 
-    void add(const T& item) {
-        array->append(item);
-    }
-
 public:
     ImmutableArraySequence(const T* arrayToCopy, int size): array(new DynamicArray<T>(arrayToCopy, size)) {}
     ImmutableArraySequence(int size): array(new DynamicArray<T>(size)) {}
@@ -81,7 +77,7 @@ public:
         if (startIndex < 0 || endIndex >= getLength() || startIndex > endIndex) throw std::out_of_range("Entered indices are out of range.\n");
         ImmutableArraySequence<T>* result = new ImmutableArraySequence<T>;
         for (int i = startIndex; i <= endIndex; ++i) {
-            result->add(get(i));
+            result->array->append(get(i));
         }
         return result;
     }
@@ -90,10 +86,10 @@ public:
         ImmutableArraySequence<T>* result = new ImmutableArraySequence<T>;
         int i = 0;
         for (; i < getLength(); ++i) {
-            result->add(get(i));
+            result->array->append(get(i));
         }
         for (; i < getLength() + other.getLength(); ++i) {
-            result->add(other.get(i - getLength()));
+            result->array->append(other.get(i - getLength()));
         }
         return result;
     }
