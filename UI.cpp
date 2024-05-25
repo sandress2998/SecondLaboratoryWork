@@ -92,6 +92,10 @@ public:
         }
 
     void printSequence() {
+        if (sequence->getLength() == 0) {
+            std::cout << "Sequence is empty.\n";
+            return;
+        }
         std::cout << (*sequence);
         std::cout << "\n\n";
     }
