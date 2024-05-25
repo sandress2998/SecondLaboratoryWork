@@ -111,7 +111,6 @@ public:
             delete subsequence;
         } catch (std::out_of_range& ex) {
             std::cout << ex.what();
-            printSubsequence();
         }
         std::cout << "\n\n";
     }
