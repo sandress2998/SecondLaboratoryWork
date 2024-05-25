@@ -111,16 +111,6 @@ public:
         }
         std::cout << "\n\n";
     }
-
-    void initializeSequence() {
-        std::cout << "Enter the values to initialize your sequence:\n";
-        for (int i = 0; i < sequence->getLength(); ++i) {
-            T item;
-            std::cin >> item;
-            sequence->set(i, item);
-        }
-        std::cout << "\n\n";
-    }
 };
 
 template <typename T>
