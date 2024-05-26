@@ -1,3 +1,4 @@
+#include <iostream>
 #include "UI.h"
 #include "Sequence.h" // для функции printSubsequence
 #include "MutableListSequence.h"
