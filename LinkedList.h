@@ -171,12 +171,19 @@ public:
     }
 
     LinkedList<T>* concat(const LinkedList<T>* other) const { // сцепляет два списка
-        LinkedList<T>* result = new LinkedList<T>;
+        LinkedList<T>* result = new LinkedList<T>(size + other->size);
+        Node<T>* resultBufNode = &result->getNode(0);
+        Node<T>* bufNode = &getNode(0);
         for (int i = 0; i < size; ++i) {
-            result->append((*this)[i]);
+            resultBufNode->value = bufNode->value;
+            resultBufNode = resultBufNode->next;
+            bufNode = bufNode->next;
         }
+        bufNode = &other->getNode(0);
         for (int j = 0; j < other->getLength(); ++j) {
-            result->append((*other)[j]);
+            resultBufNode->value = bufNode->value;
+            resultBufNode = resultBufNode->next;
+            bufNode = bufNode->next;
         }
         return result;
     }
