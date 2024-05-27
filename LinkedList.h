@@ -36,15 +36,13 @@ private:
     }
 
     void deleteList() {
-        if (head != nullptr) {
-            Node<T>* bufNode = head->next;
-            while (bufNode != nullptr) {
-                delete head;
-                head = bufNode;
-                bufNode = bufNode->next;
-            }
+        Node<T>* bufNode = head;
+        while (bufNode != nullptr) {
+            bufNode = bufNode->next;
             delete head;
+            head = bufNode;
         }
+        delete head;
     }
 
 public:
