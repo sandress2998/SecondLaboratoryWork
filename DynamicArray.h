@@ -92,7 +92,10 @@ public:
         delete[] array;
         array = helpArray;
         size = newSize;
-        if (size == 0) array = nullptr;
+        if (size == 0) {
+            delete[] array;
+            array = nullptr;
+        }
     }
 
     void append(const T& item) {
