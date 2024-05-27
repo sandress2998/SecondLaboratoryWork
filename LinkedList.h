@@ -24,7 +24,7 @@ private:
     Node<T>* head = nullptr;
     Node<T>* tail = nullptr;
 
-    // метод для получения полного доступа к i-ому Node
+    // метод для получения полного доступа к i-ому Node. Метод константный, так как используется в константной функции []
     Node<T>& getNode(int index) const {
         if (index < 0 || index >= size) throw std::out_of_range("The entered index is out of range.\n");
         if (head == nullptr) throw std::out_of_range("There was a request to get an element from the empty collection.\n");
