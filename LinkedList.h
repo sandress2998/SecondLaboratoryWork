@@ -206,16 +206,15 @@ public:
     }
 
     friend std::ostream& operator << (std::ostream& os, const LinkedList<T>& other) {
-        int i = 0;
         Node<T>* bufNode;
         if (other.getLength() != 0) {
             bufNode = &other.getNode(0);
         }
-        for (; i < other.getLength() - 1; ++i) {
+        for (int i = 0; i < other.getLength(); ++i) {
             os << bufNode->value << " ";
             bufNode = bufNode->next;
         }
-        os << bufNode->value << "\n";
+        os << "\n";
         return os;
     }
 };
