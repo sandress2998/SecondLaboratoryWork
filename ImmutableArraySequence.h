@@ -78,23 +78,22 @@ public:
 
     ImmutableArraySequence<T>* getSubsequence(int startIndex, int endIndex) const override {
         if (startIndex < 0 || endIndex >= getLength() || startIndex > endIndex) throw std::out_of_range("Entered indices are out of range.\n");
-        ImmutableArraySequence<T>* result = new ImmutableArraySequence<T>;
+        ImmutableArraySequence<T>* result = new ImmutableArraySequence<T>(endIndex - startIndex + 1);
         for (int i = startIndex; i <= endIndex; ++i) {
-            result->array->append(get(i));
+            result->array->set(i - startIndex, get(i));
         }
         return result;
     }
 
     ImmutableArraySequence<T>* concat(const Sequence<T>& other) const override {
-        ImmutableArraySequence<T>* result = new ImmutableArraySequence<T>;
+        ImmutableArraySequence<T>* result = new ImmutableArraySequence<T>(getLength() + other.getLength());
         int i = 0;
         for (; i < getLength(); ++i) {
-            result->array->append(get(i));
+            result->array->set(i, get(i));
         }
-        for (; i < getLength() + other.getLength(); ++i) {
-            result->array->append(other.get(i - getLength()));
+        for (; i < result->getLength(); ++i) {
+            result->array->set(i, other.get(i - getLength()));
         }
         return result;
     }
-
 };
