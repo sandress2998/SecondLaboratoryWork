@@ -22,11 +22,9 @@ public:
     ImmutableListSequence(const Sequence<T>& other): list(new LinkedList<T>(other)) {}
     ImmutableListSequence(const LinkedList<T>& other): list(new LinkedList<T>(other)) {}
     ImmutableListSequence(const DynamicArray<T>& other) {
-        T helpArray[other.getSize()];
-        for (int i = 0; i < other.getSize(); ++i) {
-            helpArray[i] = other.get(i);
+        for (int i = 0; i < other.getLength(); ++i) {
+            list->append(other.get(i));
         }
-        list = new LinkedList<T>(helpArray, other.getSize());
     }
 
     ~ImmutableListSequence() override {
