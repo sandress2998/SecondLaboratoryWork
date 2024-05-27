@@ -139,25 +139,23 @@ public:
         if (size == 0) {
             head = new Node<T>(item);
             tail = head;
-            ++size;
         } else {
             tail->next = new Node<T>(item);
-            tail = tail->next;
-            ++size;
+            tail = tail->next;  
         }
+        ++size;
     }
 
     void prepend(const T& item) { // добавляет элемент в начало списка
         if (size == 0) {
             head = new Node<T>(item);
             tail = head;
-            ++size;
         } else {
             Node<T>* nodeBuf = head;
             head = new Node<T>(item);
             head->next = nodeBuf;
-            ++size;
         }
+        ++size;
     }
 
     void insertAt(int index, const T& item) { // вставляет элемент в заданную позицию
