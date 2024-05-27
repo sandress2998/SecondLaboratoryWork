@@ -193,8 +193,10 @@ public:
     LinkedList<T>* getSubsequence(int startIndex, int endIndex) const {
         if (startIndex > endIndex || startIndex < 0 || endIndex >= this->getLength()) throw std::out_of_range("Entered indices are out of range.\n");
         LinkedList<T>* result = new LinkedList<T>;
+        Node<T>* bufNode = &getNode(startIndex);
         for (int i = startIndex; i <= endIndex; ++i) {
-            result->append((*this)[i]);
+            result->append(bufNode->value);
+            bufNode = bufNode->next;
         }
         return result;
     }
