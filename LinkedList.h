@@ -201,12 +201,17 @@ public:
         return result;
     }
 
-    friend std::ostream& operator << (std::ostream& os, const LinkedList<T>& value) {
+    friend std::ostream& operator << (std::ostream& os, const LinkedList<T>& other) {
         int i = 0;
-        for (; i < value.getLength() - 1; ++i) {
-            os << value[i] << " ";
+        Node<T>* bufNode;
+        if (other.getLength() != 0) {
+            bufNode = &other.getNode(0);
         }
-        os << value[i] << "\n";
+        for (; i < other.getLength() - 1; ++i) {
+            os << bufNode->value << " ";
+            bufNode = bufNode->next;
+        }
+        os << bufNode->value << "\n";
         return os;
     }
 };
