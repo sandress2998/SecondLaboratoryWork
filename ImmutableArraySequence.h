@@ -49,7 +49,8 @@ public:
 
     ImmutableArraySequence<T>* append(const T& item) const override {
         ImmutableArraySequence<T>* result = instance();
-        result->array->append(item);
+        result->array->resize(array->getSize() + 1);
+        result->array->set(array->getSize(), item);
         return result;
     }
 
