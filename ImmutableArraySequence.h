@@ -48,8 +48,10 @@ public:
     }
 
     ImmutableArraySequence<T>* append(const T& item) const override {
-        ImmutableArraySequence<T>* result = instance();
-        result->array->resize(array->getSize() + 1);
+        ImmutableArraySequence<T>* result = new ImmutableArraySequence(getLength() + 1);
+        for (int i = 0; i < getLength(); ++i) {
+            result->array->set(i, (*this)[i]);
+        }
         result->array->set(array->getSize(), item);
         return result;
     }
