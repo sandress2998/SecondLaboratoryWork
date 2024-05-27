@@ -100,7 +100,6 @@ public:
         return  getNode(index).value;
     }
 
-    // Переделано
     LinkedList<T>& operator=(const LinkedList<T>& other) {
         // сначала удаляем все элементы
         deleteList();
@@ -108,8 +107,13 @@ public:
         head = nullptr;
         tail = nullptr;
         size = 0;
+        Node<T>* bufNode;
+        if (other.getLength() != 0) {
+            bufNode = &other.getNode(0);
+        }
         for (int i = 0; i < other.getLength(); ++i) {
-            this->append(other[i]);
+            this->append(bufNode->value);
+            bufNode = bufNode->next;
         }
         return (*this);
     }
