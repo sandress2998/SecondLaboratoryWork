@@ -6,9 +6,6 @@
 /// Functionally complements ListSequence
 
 template <typename T>
-class DynamicArray;
-
-template <typename T>
 class Node {
 public:
     Node* next;
